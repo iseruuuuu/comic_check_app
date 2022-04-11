@@ -55,11 +55,12 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     }
   }
 
-  void update(
-      {required int index,
-      required Comic comic,
-      required bool done,
-      required Todo todo,}) async {
+  void update({
+    required int index,
+    required Comic comic,
+    required bool done,
+    required Todo todo,
+  }) async {
     list[index].done = done;
     state = state.copyWith(
       comics: list,
@@ -96,6 +97,8 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     }
     state = state.copyWith(
       comics: list,
+      publisher: '',
+      count: 0,
     );
     comicTitle = key;
   }
