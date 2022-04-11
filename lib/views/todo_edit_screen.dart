@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TodoEditScreen extends HookWidget {
   const TodoEditScreen({
@@ -22,7 +23,6 @@ class TodoEditScreen extends HookWidget {
     final comicState = useProvider(todoViewModelProvider);
     final comic = comicState.publisher;
     final count = comicState.count;
-    final comicName = comicState.comicName;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
