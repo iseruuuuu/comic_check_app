@@ -18,6 +18,11 @@ class TodoDetailScreen extends HookWidget {
   Widget build(BuildContext context) {
     final todoViewModel = useProvider(todoViewModelProvider.notifier);
     final todoState = useProvider(todoViewModelProvider);
+    useEffect(
+      () {
+        todoViewModel.getComic(todo.title);
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
@@ -66,8 +71,10 @@ class TodoDetailScreen extends HookWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: todo.count,
+                itemCount: todoViewModel.state.comics.length,
                 itemBuilder: (BuildContext context, int index) {
+                  var comic = todoViewModel.findByIndex(todo.count);
+                  var selectedComic = todoViewModel.findByIndex(index + 1);
                   return Container(
                     decoration: const BoxDecoration(
                       border: Border(
@@ -80,7 +87,8 @@ class TodoDetailScreen extends HookWidget {
                     child: ListTile(
                       tileColor: Colors.grey.shade100,
                       title: Text(
-                        '$index 巻',
+                        //'${index + 1} 巻',
+                        '${index} 巻',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25.w,
@@ -88,10 +96,14 @@ class TodoDetailScreen extends HookWidget {
                         ),
                       ),
                       trailing: Switch(
-                        value: true,
-                        //TODO onChangedの処理がまだわかっていない。
-                        onChanged: (isChange) {
-                          isChange != isChange;
+                        value: selectedComic.done,
+                        onChanged: (done) {
+                          todoViewModel.update(
+                            index: index,
+                            comic: selectedComic,
+                            done: done,
+                            todo: todo,
+                          );
                         },
                       ),
                     ),
