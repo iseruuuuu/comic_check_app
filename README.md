@@ -1,6 +1,9 @@
 # comic_check_app
 
-A new Flutter project.
+## やることリスト
+・巻数が０巻になっている
+・編集した後の確認（ちゃんと巻数チェックが反映されているのか）
+
 
 ## Getting Started
 
