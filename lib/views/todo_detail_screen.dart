@@ -20,7 +20,7 @@ class TodoDetailScreen extends HookWidget {
     final todoState = useProvider(todoViewModelProvider);
     useEffect(
       () {
-        todoViewModel.getComic(todo.title);
+        todoViewModel.getComic(todo.key);
       },
     );
     return Scaffold(

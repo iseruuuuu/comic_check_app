@@ -21,12 +21,17 @@ class _$TodoTearOff {
   const _$TodoTearOff();
 
   _Todo call(
-      {int? id, String title = '', String publisher = '', int count = 0}) {
+      {int? id,
+      String title = '',
+      String publisher = '',
+      int count = 0,
+      String key = ''}) {
     return _Todo(
       id: id,
       title: title,
       publisher: publisher,
       count: count,
+      key: key,
     );
   }
 
@@ -44,6 +49,7 @@ mixin _$Todo {
   String get title => throw _privateConstructorUsedError;
   String get publisher => throw _privateConstructorUsedError;
   int get count => throw _privateConstructorUsedError;
+  String get key => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +60,7 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res>;
-  $Res call({int? id, String title, String publisher, int count});
+  $Res call({int? id, String title, String publisher, int count, String key});
 }
 
 /// @nodoc
@@ -71,6 +77,7 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
     Object? title = freezed,
     Object? publisher = freezed,
     Object? count = freezed,
+    Object? key = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -89,6 +96,10 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -98,7 +109,7 @@ abstract class _$TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
   factory _$TodoCopyWith(_Todo value, $Res Function(_Todo) then) =
       __$TodoCopyWithImpl<$Res>;
   @override
-  $Res call({int? id, String title, String publisher, int count});
+  $Res call({int? id, String title, String publisher, int count, String key});
 }
 
 /// @nodoc
@@ -116,6 +127,7 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
     Object? title = freezed,
     Object? publisher = freezed,
     Object? count = freezed,
+    Object? key = freezed,
   }) {
     return _then(_Todo(
       id: id == freezed
@@ -134,6 +146,10 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -142,7 +158,11 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Todo implements _Todo {
   const _$_Todo(
-      {this.id, this.title = '', this.publisher = '', this.count = 0});
+      {this.id,
+      this.title = '',
+      this.publisher = '',
+      this.count = 0,
+      this.key = ''});
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) =>
       _$_$_TodoFromJson(json);
@@ -158,10 +178,13 @@ class _$_Todo implements _Todo {
   @JsonKey(defaultValue: 0)
   @override
   final int count;
+  @JsonKey(defaultValue: '')
+  @override
+  final String key;
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: $title, publisher: $publisher, count: $count)';
+    return 'Todo(id: $id, title: $title, publisher: $publisher, count: $count, key: $key)';
   }
 
   @override
@@ -176,7 +199,9 @@ class _$_Todo implements _Todo {
                 const DeepCollectionEquality()
                     .equals(other.publisher, publisher)) &&
             (identical(other.count, count) ||
-                const DeepCollectionEquality().equals(other.count, count)));
+                const DeepCollectionEquality().equals(other.count, count)) &&
+            (identical(other.key, key) ||
+                const DeepCollectionEquality().equals(other.key, key)));
   }
 
   @override
@@ -185,7 +210,8 @@ class _$_Todo implements _Todo {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(publisher) ^
-      const DeepCollectionEquality().hash(count);
+      const DeepCollectionEquality().hash(count) ^
+      const DeepCollectionEquality().hash(key);
 
   @JsonKey(ignore: true)
   @override
@@ -199,8 +225,12 @@ class _$_Todo implements _Todo {
 }
 
 abstract class _Todo implements Todo {
-  const factory _Todo({int? id, String title, String publisher, int count}) =
-      _$_Todo;
+  const factory _Todo(
+      {int? id,
+      String title,
+      String publisher,
+      int count,
+      String key}) = _$_Todo;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 
@@ -212,6 +242,8 @@ abstract class _Todo implements Todo {
   String get publisher => throw _privateConstructorUsedError;
   @override
   int get count => throw _privateConstructorUsedError;
+  @override
+  String get key => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TodoCopyWith<_Todo> get copyWith => throw _privateConstructorUsedError;

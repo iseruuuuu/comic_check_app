@@ -26,9 +26,10 @@ class AppDatabase {
         title TEXT,
         publisher TEXT,
         count INT,
+        key TEXT,
         is_done BOOLEAN
       )
     ''');
   }
-  // count INTEGER
+// count INTEGER
 }

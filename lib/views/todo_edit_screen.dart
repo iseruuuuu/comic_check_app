@@ -23,6 +23,21 @@ class TodoEditScreen extends HookWidget {
     final comicState = useProvider(todoViewModelProvider);
     final comic = comicState.publisher;
     final count = comicState.count;
+    useAnimationController(duration: const Duration(seconds: 2));
+
+    final counts = useState(todo.count);
+    final publisherrr = useState(todo.publisher);
+
+    useEffect(() {
+      WidgetsBinding.instance?.addPostFrameCallback(
+        (_) {
+          todoViewModel.getEditComic(
+            count: todo.count,
+            publisher: todo.publisher,
+          );
+        },
+      );
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
@@ -41,9 +56,12 @@ class TodoEditScreen extends HookWidget {
           SizedBox(
             width: 300.w,
             child: TextField(
-              controller: titleController,
+              //controller: titleController,
               style: TextStyle(fontSize: 20.w),
               autocorrect: false,
+              onChanged: (comicName) {
+                todoViewModel.onChangeWord(comicName);
+              },
             ),
           ),
           RichText(
@@ -66,10 +84,8 @@ class TodoEditScreen extends HookWidget {
                 ),
                 TextSpan(
                   //TODO 初期画面は、事前に登録したもので、変更したら変わるようにする。
-                  // text: todo.publisher,
-                  text: (todo.publisher.isNotEmpty)
-                      ? todo.publisher
-                      : todo.publisher,
+                  text: todoViewModel.publisher(),
+                  //text: publisherrr.value,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 22.w,
@@ -87,8 +103,9 @@ class TodoEditScreen extends HookWidget {
               looping: true,
               itemExtent: 30,
               scrollController: FixedExtentScrollController(initialItem: 0),
-              onSelectedItemChanged: (index) =>
-                  todoViewModel.onSelectedItemChanged(index, publisher[index]),
+              onSelectedItemChanged: (index) {
+                todoViewModel.changePublisher(publisher[index]);
+              },
               children: publisher.map((publisher) => Text(publisher)).toList(),
             ),
           ),
@@ -112,7 +129,7 @@ class TodoEditScreen extends HookWidget {
                 ),
                 TextSpan(
                   //TODO 初期画面は、事前に登録したもので、変更したら変わるようにする。
-                  text: '$count巻',
+                  text: todoViewModel.text(count: todo.count) + '巻',
                   style: TextStyle(
                     color: Colors.blue,
                     fontSize: 35.w,
@@ -137,9 +154,10 @@ class TodoEditScreen extends HookWidget {
                 ),
               ),
               onPressed: () async {
+                //TODO　更新の処理をしっかりとかく
                 if (titleController.text != '' && comic != '' && count != 0) {
-                  await todoViewModel.addTodo(
-                      titleController.text, comic, count);
+                  await todoViewModel.updateComic(todo.id!, todo,);
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 }
               },

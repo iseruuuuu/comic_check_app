@@ -12,6 +12,7 @@ _$_Todo _$_$_TodoFromJson(Map<String, dynamic> json) {
     title: json['title'] as String? ?? '',
     publisher: json['publisher'] as String? ?? '',
     count: json['count'] as int? ?? 0,
+    key: json['key'] as String? ?? '',
   );
 }
 
@@ -20,4 +21,5 @@ Map<String, dynamic> _$_$_TodoToJson(_$_Todo instance) => <String, dynamic>{
       'title': instance.title,
       'publisher': instance.publisher,
       'count': instance.count,
+      'key': instance.key,
     };

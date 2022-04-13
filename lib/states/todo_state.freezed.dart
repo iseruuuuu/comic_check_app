@@ -37,7 +37,7 @@ const $TodoState = _$TodoStateTearOff();
 
 /// @nodoc
 mixin _$TodoState {
-  List<Todo> get todos => throw _privateConstructorUsedError;
+  List<Todo> get todos => throw _privateConstructorUsedError; //漫画の登録の際に使用(出版社)
   String get publisher =>
       throw _privateConstructorUsedError; //漫画の登録の際に使用(何巻まであるのか)
   int get count => throw _privateConstructorUsedError; //巻数の管理に使用
@@ -172,7 +172,7 @@ class _$_TodoState implements _TodoState {
   @override
   final List<Todo> todos;
   @JsonKey(defaultValue: '')
-  @override
+  @override //漫画の登録の際に使用(出版社)
   final String publisher;
   @JsonKey(defaultValue: 0)
   @override //漫画の登録の際に使用(何巻まであるのか)
@@ -232,7 +232,7 @@ abstract class _TodoState implements TodoState {
 
   @override
   List<Todo> get todos => throw _privateConstructorUsedError;
-  @override
+  @override //漫画の登録の際に使用(出版社)
   String get publisher => throw _privateConstructorUsedError;
   @override //漫画の登録の際に使用(何巻まであるのか)
   int get count => throw _privateConstructorUsedError;
