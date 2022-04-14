@@ -23,19 +23,9 @@ class TodoEditScreen extends HookWidget {
     final comicState = useProvider(todoViewModelProvider);
     final comic = comicState.publisher;
     final count = comicState.count;
-    useAnimationController(duration: const Duration(seconds: 2));
-
-    final counts = useState(todo.count);
-    final publisherrr = useState(todo.publisher);
-
     useEffect(() {
       WidgetsBinding.instance?.addPostFrameCallback(
-        (_) {
-          todoViewModel.getEditComic(
-            count: todo.count,
-            publisher: todo.publisher,
-          );
-        },
+        (_) {},
       );
     });
     return Scaffold(
@@ -85,7 +75,6 @@ class TodoEditScreen extends HookWidget {
                 TextSpan(
                   //TODO 初期画面は、事前に登録したもので、変更したら変わるようにする。
                   text: todoViewModel.publisher(),
-                  //text: publisherrr.value,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 22.w,
@@ -156,7 +145,7 @@ class TodoEditScreen extends HookWidget {
               onPressed: () async {
                 //TODO　更新の処理をしっかりとかく
                 if (titleController.text != '' && comic != '' && count != 0) {
-                  await todoViewModel.updateComic(todo.id!, todo,);
+                  await todoViewModel.updateComic(todo.id!, todo);
                   Navigator.pop(context);
                   Navigator.pop(context);
                 }

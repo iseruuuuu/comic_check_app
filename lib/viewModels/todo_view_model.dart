@@ -85,7 +85,6 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
         key: title,
       ),
     );
-    print(todo);
     state = state.copyWith(
       todos: [todo, ...state.todos],
     );
@@ -126,7 +125,6 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     state = state.copyWith(
       publisher: publisher,
     );
-    print(publisher);
   }
 
   Future<void> onChanged(bool onChanged) async {}
@@ -163,21 +161,12 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
   }
 
 //TODO EditScreen
-
-  void getEditComic({required int count, required String publisher}) {
-    // state = state.copyWith(
-    //   count: count,
-    //   publisher: publisher,
-    // );
-  }
-
   Future<void> changePublisher(String publisher) async {
     state = state.copyWith(
       publisher: publisher,
     );
   }
 
-  //TODO 初期画面は、事前に登録したもので、変更したら変わるようにする。
   String text({required int count}) {
     return '${state.count}';
   }
@@ -186,52 +175,35 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     return state.publisher;
   }
 
-  Future<void> updateComic(
-    int todoId,
-    Todo todo,
-  ) async {
-    final todoss = todo.copyWith(
+  Future<void> updateComic(int todoId, Todo todo) async {
+    final newTodo = todo.copyWith(
       title: state.comicName,
       count: state.count,
       publisher: state.publisher,
       key: todo.key,
     );
-    await _todoRepository.updateTodo(todoss);
-
-    // print(list[0].id);  //0
-    // print(list[0].count); //0
-    // print(list[0].done); //false
-    // //TODO updateをすると漫画名とかは変更できたけど、巻数の数が変わらない
-    // print('初めの値' + "${list.length}"); //初めの値    2
-    // print('更新した値' '${state.count}'); //更新した値  1
-
+    await _todoRepository.updateTodo(newTodo);
     if (list.length < state.count) {
-      //TODO もし巻数が増えたら、増やす
       for (var id = 0; id < state.count; id++) {
         if (id >= list.length) {
           var newComic = Comic(id, '$id', false);
           list.add(newComic);
-        } else {}
+        }
+      }
+    } else {
+      for (var id = list.length - 1; id > 0; id--) {
+        if (id >= state.count) {
+          list.removeLast();
+        }
       }
     }
-    state = state.copyWith(
-      comics: list,
-    );
     save(todo.key);
-    // } else {
-    //   //TODO もし巻数が減ったら減らす。
-    //   for (var id = 0; id <= state.count; id--) {
-    //     // var newComic = Comic(id, '$id', false);
-    //     list.removeAt(id);
-    //   }
-    // }
-
-    final todos = state.todos
-        .map((todo) => todo.id == todoss.id ? todoss : todo)
+    final updateTodo = state.todos
+        .map((todo) => todo.id == newTodo.id ? newTodo : todo)
         .toList();
-
     state = state.copyWith(
-      todos: todos,
+      todos: updateTodo,
+      comics: list,
     );
   }
 }
