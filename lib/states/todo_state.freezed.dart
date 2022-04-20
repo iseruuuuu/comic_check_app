@@ -18,7 +18,7 @@ class _$TodoStateTearOff {
 
   _TodoState call(
       {List<Todo> todos = const [],
-      String publisher = '',
+      String publisher = '出版社を選択',
       int count = 0,
       List<Comic> comics = const [],
       String comicName = ''}) {
@@ -163,7 +163,7 @@ class __$TodoStateCopyWithImpl<$Res> extends _$TodoStateCopyWithImpl<$Res>
 class _$_TodoState implements _TodoState {
   const _$_TodoState(
       {this.todos = const [],
-      this.publisher = '',
+      this.publisher = '出版社を選択',
       this.count = 0,
       this.comics = const [],
       this.comicName = ''});
@@ -171,7 +171,7 @@ class _$_TodoState implements _TodoState {
   @JsonKey(defaultValue: const [])
   @override
   final List<Todo> todos;
-  @JsonKey(defaultValue: '')
+  @JsonKey(defaultValue: '出版社を選択')
   @override //漫画の登録の際に使用(出版社)
   final String publisher;
   @JsonKey(defaultValue: 0)

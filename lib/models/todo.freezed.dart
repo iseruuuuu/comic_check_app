@@ -23,7 +23,7 @@ class _$TodoTearOff {
   _Todo call(
       {int? id,
       String title = '',
-      String publisher = '',
+      String publisher = '出版社を選択',
       int count = 0,
       String key = ''}) {
     return _Todo(
@@ -160,7 +160,7 @@ class _$_Todo implements _Todo {
   const _$_Todo(
       {this.id,
       this.title = '',
-      this.publisher = '',
+      this.publisher = '出版社を選択',
       this.count = 0,
       this.key = ''});
 
@@ -172,7 +172,7 @@ class _$_Todo implements _Todo {
   @JsonKey(defaultValue: '')
   @override
   final String title;
-  @JsonKey(defaultValue: '')
+  @JsonKey(defaultValue: '出版社を選択')
   @override
   final String publisher;
   @JsonKey(defaultValue: 0)

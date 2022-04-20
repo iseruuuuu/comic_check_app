@@ -10,7 +10,7 @@ _$_Todo _$_$_TodoFromJson(Map<String, dynamic> json) {
   return _$_Todo(
     id: json['id'] as int?,
     title: json['title'] as String? ?? '',
-    publisher: json['publisher'] as String? ?? '',
+    publisher: json['publisher'] as String? ?? '出版社を選択',
     count: json['count'] as int? ?? 0,
     key: json['key'] as String? ?? '',
   );
