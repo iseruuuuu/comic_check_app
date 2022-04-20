@@ -2,6 +2,7 @@ import 'package:comic_check_app/models/todo.dart';
 import 'package:comic_check_app/viewModels/todo_view_model.dart';
 import 'package:comic_check_app/views/todo_add_screen.dart';
 import 'package:comic_check_app/views/todo_detail_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,25 +13,47 @@ class TodoListScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final todoViewModel = useProvider(todoViewModelProvider.notifier);
     return Scaffold(
+      backgroundColor: CupertinoColors.secondarySystemBackground,
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: CupertinoColors.destructiveRed,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () => todoViewModel.onTapSetting(context),
+            iconSize: 35.w,
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: _todoList(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.edit),
-        backgroundColor: Colors.redAccent,
-        onPressed: () async {
-          Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return const TodoAddScreen();
-              },
-              fullscreenDialog: true,
-            ),
-          );
-        },
+      floatingActionButton: SizedBox(
+        width: MediaQuery.of(context).size.width / 5,
+        height: MediaQuery.of(context).size.width / 5,
+        child: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            size: 40.w,
+          ),
+          backgroundColor: Colors.redAccent,
+          onPressed: () async {
+            Navigator.of(
+              context,
+              rootNavigator: true,
+            ).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return const TodoAddScreen();
+                },
+                fullscreenDialog: true,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -61,10 +84,11 @@ class TodoListScreen extends HookWidget {
   ) {
     return Container(
       decoration: const BoxDecoration(
+        color: Colors.white,
         border: Border(
           bottom: BorderSide(
             width: 1,
-            color: Colors.grey,
+            color: Colors.white,
           ),
         ),
       ),
@@ -74,7 +98,7 @@ class TodoListScreen extends HookWidget {
           todo.title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 25.w,
+            fontSize: 20.w,
           ),
         ),
         subtitle: Text(
