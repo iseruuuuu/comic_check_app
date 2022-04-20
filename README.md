@@ -1,22 +1,11 @@
 # comic_check_app
 
 ## やることリスト
-・初期画面は、事前に登録したもので、変更したら変わるようにする。(編集画面のテキスト)  
-・更新の処理を実装する。  
-・巻数が０巻になっている
-・編集した後の確認（ちゃんと巻数チェックが反映されているのか）
 
+- [ ] 初期画面は、事前に登録したもので、変更したら変わるようにする。(編集画面のテキスト)  
+- [ ] 巻数が０巻になっている
+- [ ] 更新の処理を実装する。  
+- [ ] 編集した後の確認（ちゃんと巻数チェックが反映されているのか）
+- [ ] 空だった時の処理
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# comic_check_app
+## やれたらいいなリスト
