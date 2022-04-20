@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:comic_check_app/databases/todo_database.dart';
 import 'package:comic_check_app/models/comic.dart';
+import 'package:comic_check_app/models/publisher.dart';
 import 'package:comic_check_app/models/todo.dart';
 import 'package:comic_check_app/preference/preference.dart';
 import 'package:comic_check_app/repositories/todo_repository.dart';
 import 'package:comic_check_app/states/todo_state.dart';
+import 'package:comic_check_app/views/setting_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -99,7 +101,7 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     }
     state = state.copyWith(
       comics: list,
-      publisher: '',
+      publisher: '出版社を選択',
       count: 0,
     );
     comicTitle = key;
@@ -121,17 +123,34 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
   }
 
   //TODO AddScreen
-  Future<void> onSelectedItemChanged(int index, String publisher) async {
-    state = state.copyWith(
-      publisher: publisher,
-    );
-  }
-
-  Future<void> onChanged(bool onChanged) async {}
-
   Future<void> onChangeWord(String comicName) async {
     state = state.copyWith(
       comicName: comicName,
+    );
+  }
+
+  Future<void> openPublisher(BuildContext context) async {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height / 3,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              itemExtent: 40,
+              children: publisher.map((publisher) => Text(publisher)).toList(),
+              onSelectedItemChanged: (index) {
+                state = state.copyWith(
+                  publisher: publisher[index],
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -147,7 +166,7 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
             },
             child: CupertinoPicker(
               itemExtent: 40,
-              children: List<Widget>.generate(1000, (index) => Text('$index')),
+              children: List<Widget>.generate(100, (index) => Text('$index')),
               onSelectedItemChanged: (index) {
                 state = state.copyWith(
                   count: index,
@@ -171,9 +190,9 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     return '${state.count}';
   }
 
-  String publisher() {
-    return state.publisher;
-  }
+  // String publisher() {
+  //   return state.publisher;
+  // }
 
   Future<void> updateComic(int todoId, Todo todo) async {
     final newTodo = todo.copyWith(
@@ -204,6 +223,15 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     state = state.copyWith(
       todos: updateTodo,
       comics: list,
+    );
+  }
+
+  void onTapSetting(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingScreen(),
+      ),
     );
   }
 }
