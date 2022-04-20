@@ -1,6 +1,7 @@
 import 'package:comic_check_app/models/todo.dart';
 import 'package:comic_check_app/viewModels/todo_view_model.dart';
 import 'package:comic_check_app/views/todo_edit_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,31 +25,11 @@ class TodoDetailScreen extends HookWidget {
       },
     );
     return Scaffold(
+      backgroundColor: CupertinoColors.secondarySystemBackground,
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: CupertinoColors.destructiveRed,
         elevation: 0,
-        title: const Text(
-          '漫画詳細',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TodoEditScreen(
-                    todo: todo,
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.settings),
-          ),
-        ],
+        foregroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
@@ -57,16 +38,30 @@ class TodoDetailScreen extends HookWidget {
             Container(
               width: double.infinity,
               height: 80.w,
-              color: Colors.grey.shade200,
-              child: Center(
-                child: Text(
-                  todo.title + '/' + todo.publisher,
-                  style: TextStyle(
-                    fontSize: 20.w,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+              color: CupertinoColors.destructiveRed,
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      todo.title,
+                      style: TextStyle(
+                        fontSize: 20.w,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Text(
+                      todo.publisher,
+                      style: TextStyle(
+                        fontSize: 20.w,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -87,24 +82,27 @@ class TodoDetailScreen extends HookWidget {
                     child: ListTile(
                       tileColor: Colors.grey.shade100,
                       title: Text(
-                        //'${index + 1} 巻',
-                        '${index} 巻',
+                        '$index 巻',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.w,
+                          fontSize: 35.w,
                           color: Colors.black,
                         ),
                       ),
-                      trailing: Switch(
-                        value: selectedComic.done,
-                        onChanged: (done) {
-                          todoViewModel.update(
-                            index: index,
-                            comic: selectedComic,
-                            done: done,
-                            todo: todo,
-                          );
-                        },
+                      contentPadding: EdgeInsets.symmetric(horizontal: 30.w),
+                      trailing: Transform.scale(
+                        scale: 1.4.w,
+                        child: Switch(
+                          value: selectedComic.done,
+                          onChanged: (done) {
+                            todoViewModel.update(
+                              index: index,
+                              comic: selectedComic,
+                              done: done,
+                              todo: todo,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   );
@@ -112,6 +110,27 @@ class TodoDetailScreen extends HookWidget {
               ),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: SizedBox(
+        width: MediaQuery.of(context).size.width / 5,
+        height: MediaQuery.of(context).size.width / 5,
+        child: FloatingActionButton(
+          child: Icon(
+            Icons.edit,
+            size: 40.w,
+          ),
+          backgroundColor: Colors.redAccent,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TodoEditScreen(
+                  todo: todo,
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
