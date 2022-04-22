@@ -8,18 +8,21 @@ class TextFieldItem extends StatelessWidget {
     required this.hintText,
     required this.maxLength,
     required this.onChanged,
+    this.comicName,
   }) : super(key: key);
 
   final String hintText;
   final int maxLength;
   final Function(String) onChanged;
+  final String? comicName;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 300.w,
       height: 80.w,
-      child: TextField(
+      child: TextFormField(
+        initialValue: comicName,
         onChanged: onChanged,
         style: TextStyle(
           fontSize: 20.w,
