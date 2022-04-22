@@ -86,7 +86,7 @@ class TodoDetailScreen extends HookWidget {
                     child: ListTile(
                       tileColor: Colors.grey.shade100,
                       title: Text(
-                        '$index 巻',
+                        '${index + 1} 巻',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 35.w,
