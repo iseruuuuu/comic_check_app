@@ -87,8 +87,8 @@ class TodoListScreen extends HookWidget {
         color: Colors.white,
         border: Border(
           bottom: BorderSide(
-            width: 1,
-            color: Colors.white,
+            width: 2,
+            color: Colors.grey,
           ),
         ),
       ),
@@ -98,13 +98,14 @@ class TodoListScreen extends HookWidget {
           todo.title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20.w,
+            fontSize: 28.w,
+            color: Colors.black,
           ),
         ),
         subtitle: Text(
           todo.publisher,
           style: TextStyle(
-            fontSize: 15.w,
+            fontSize: 20.w,
             fontWeight: FontWeight.bold,
           ),
         ),
