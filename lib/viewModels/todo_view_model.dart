@@ -33,7 +33,14 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
   List<Comic> list = [];
   String comicTitle = '';
 
-  //TODO DetailScreen
+  Future<void> getTodos() async {
+    final todos = await _todoRepository.getTodos();
+    state = state.copyWith(
+      todos: todos,
+    );
+  }
+
+  //TODO List Screen
   void getComic(String key) async {
     var prefs = await SharedPreferences.getInstance();
     var loadList = prefs.getStringList(key) ?? [];
@@ -58,6 +65,7 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     }
   }
 
+  //TODO  Detail Screen
   void update({
     required int index,
     required Comic comic,
@@ -105,13 +113,6 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
       count: 0,
     );
     comicTitle = key;
-  }
-
-  Future<void> getTodos() async {
-    final todos = await _todoRepository.getTodos();
-    state = state.copyWith(
-      todos: todos,
-    );
   }
 
   Future<void> deleteTodo(int todoId) async {
@@ -180,19 +181,23 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
   }
 
 //TODO EditScreen
+  void initState({
+    required String comicName,
+    required String publisher,
+    required int count,
+  }) {
+    state = state.copyWith(
+      comicName: comicName,
+      publisher: publisher,
+      count: count,
+    );
+  }
+
   Future<void> changePublisher(String publisher) async {
     state = state.copyWith(
       publisher: publisher,
     );
   }
-
-  String text({required int count}) {
-    return '${state.count}';
-  }
-
-  // String publisher() {
-  //   return state.publisher;
-  // }
 
   Future<void> updateComic(int todoId, Todo todo) async {
     final newTodo = todo.copyWith(
@@ -226,11 +231,12 @@ class TodoViewModelProvider extends StateNotifier<TodoState> {
     );
   }
 
+  //TODO SettingScreen
   void onTapSetting(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SettingScreen(),
+        builder: (context) => const SettingScreen(),
       ),
     );
   }
