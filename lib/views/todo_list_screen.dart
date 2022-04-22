@@ -1,5 +1,6 @@
 import 'package:comic_check_app/models/todo.dart';
 import 'package:comic_check_app/viewModels/todo_view_model.dart';
+import 'package:comic_check_app/views/children/no_list_screen.dart';
 import 'package:comic_check_app/views/todo_add_screen.dart';
 import 'package:comic_check_app/views/todo_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -61,19 +62,23 @@ class TodoListScreen extends HookWidget {
   Widget _todoList() {
     final todoViewModel = useProvider(todoViewModelProvider.notifier);
     final todoState = useProvider(todoViewModelProvider);
-    return ListView.builder(
-      itemCount: todoState.todos.length,
-      itemBuilder: (BuildContext context, int index) {
-        final todo = todoState.todos[index];
-        return Dismissible(
-          key: UniqueKey(),
-          onDismissed: (direction) async {
-            await todoViewModel.deleteTodo(todo.id!);
-          },
-          child: _todoItem(todo, index, todoViewModel, context),
-        );
-      },
-    );
+    if (todoState.todos.length != 0) {
+      return ListView.builder(
+        itemCount: todoState.todos.length,
+        itemBuilder: (BuildContext context, int index) {
+          final todo = todoState.todos[index];
+          return Dismissible(
+            key: UniqueKey(),
+            onDismissed: (direction) async {
+              await todoViewModel.deleteTodo(todo.id!);
+            },
+            child: _todoItem(todo, index, todoViewModel, context),
+          );
+        },
+      );
+    } else {
+      return const NoListScreen();
+    }
   }
 
   Widget _todoItem(

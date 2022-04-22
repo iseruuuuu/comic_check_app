@@ -12,14 +12,15 @@ class NoListScreen extends StatelessWidget {
         children: [
           const Spacer(),
           Text(
-            '投稿がありません',
+            'Book is Empty',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 35.w,
+              fontSize: 30.w,
             ),
           ),
+          SizedBox(height: 60.w),
           Image.asset(
-            'assets/images/nolist.png',
+            'assets/images/no_list.png',
             width: 170.w,
             height: 170.w,
           ),
