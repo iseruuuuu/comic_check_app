@@ -1,5 +1,6 @@
 import 'package:comic_check_app/models/todo.dart';
 import 'package:comic_check_app/viewModels/todo_view_model.dart';
+import 'package:comic_check_app/views/children/back_icon.dart';
 import 'package:comic_check_app/views/todo_edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,6 @@ class TodoDetailScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final todoViewModel = useProvider(todoViewModelProvider.notifier);
-    final todoState = useProvider(todoViewModelProvider);
     useEffect(
       () {
         todoViewModel.getComic(todo.key);
@@ -30,6 +30,10 @@ class TodoDetailScreen extends HookWidget {
         backgroundColor: CupertinoColors.destructiveRed,
         elevation: 0,
         foregroundColor: Colors.white,
+        leading: const BackIcon(
+          icon: Icons.arrow_back_ios_sharp,
+          color: Colors.white,
+        ),
       ),
       body: Center(
         child: Column(
